@@ -1,24 +1,47 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import logo from '../../assets/logolrp.png';
+import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
-    const navigate = useNavigate();
-    const handleSubmit = (event) => {
+    const [inputValues, setInputValues] = useState({
+        email:'',
+        senha:''
+    });
+
+    const { loginUser } = useContext(AuthContext);
+
+    const handleChangeValues = (event) => {
+        setInputValues({
+            ...inputValues,
+            [event.target.name]: event.target.value
+        })
+        console.log(inputValues);
+    }    
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        navigate('/', {state: 'Maria'});
+        loginUser(inputValues);
     }
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center h-64 w-80 mx-auto rounded-lg shadow-lg shadow-zinc-400 mt-20 gap-4'>
-        <div>
-            <label htmlFor=''>Email:</label>
-            <input type='text' className='rounded-full ml-4 border px-2'/>
+    <main className='h-screen w-full banner'>
+        <div className='flex flex-col pt-30 h-screen items-center'>
+            <img src={logo} alt='logotipo food app' className='w-40 my-6'/>
+            <form onSubmit={handleSubmit} action='' className='bg-white w-96 mt-6 p-4 rounded-lg shadow-lg'>
+                <div className='flex flex-col space-y-6'>
+                    <input type='mail' placeholder='Digite o seu email' name='email'
+                        className='w-full px-4 py-3 rounded-lg ring-zinc-400 border border-zinc-300 focus:ring-4 focus:outline-none transition duration-300'
+                        onChange={handleChangeValues}
+                    />
+                    <input type='password' placeholder='Digite a sua senha' name='senha'
+                        className='w-full px-4 py-3 rounded-lg ring-zinc-400 border border-zinc-300 focus:ring-4 focus:outline-none transition duration-300'
+                        onChange={handleChangeValues}
+                    />
+                </div>
+                <button type='submit' className='w-full py-3 bg-zinc-600 text-zinc-100 focus:outline-none focus:ring-4 mt-6 rounded-lg transition duration-300'>Entrar</button>
+                <p className='text-base text-center my-6 hover:underline cursor-pointer'>Precisa de uma conta?</p>
+            </form>
         </div>
-        <div>
-            <label htmlFor=''>Senha:</label>
-            <input type='password' className='rounded-full ml-4 border px-2'/>
-        </div>
-        <button type='submit' className='bg-zinc-600  text-zinc-100  rounded-full px-6 py-1 transition duration-700 hover:scale-105 mt-6'>Login</button>
-    </form>
+    </main>
   )
 }
 

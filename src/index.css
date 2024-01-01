@@ -10,6 +10,14 @@
     background-size: cover;
 }
 
+.banner {
+    background-image: url('../src/assets/roupas.jpeg');
+    
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
 @layer components {
     .menu-tab {
         @apply text-gray-800 cursor-pointer select-none;

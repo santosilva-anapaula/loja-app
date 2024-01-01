@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import ProductList from '../ProductList';
+import produtsMock from '../../mock/product';
 
 const Products = () => {
     const [ categoriaTab, setCategoriaTab ] = useState('Primavera');
+    const [ products, setProducts ] = useState(produtsMock);
   return (
     <section className='my-12 max-w-screen-xl mx-auto px-6'>
         {/* Menu Categoria */}
@@ -14,12 +16,9 @@ const Products = () => {
         </div>
         {/* Lista de produtos */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12'>
-            <ProductList/>
-            <ProductList/>
-            <ProductList/>
-            <ProductList/>
-            <ProductList/>
-            <ProductList/>
+        {products.map(product => (
+            <ProductList key={product._id} product={product}/>
+          ))}
         </div>
     </section>
   )
