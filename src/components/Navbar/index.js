@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import logo from '../../assets/logolrb.png';
 import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IoMdCart } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 
 const Navbar = () => {
-    const { userLogged, logoutUser } = useContext(AuthContext);
+    const { userLogged, logoutUser, userFull } = useContext(AuthContext);
     const navigate = useNavigate();
 
     return (
@@ -21,10 +21,12 @@ const Navbar = () => {
                     <div className='flex items-center justify-end space-x-4'>
                     <div className='relative flex cursor-pointer'>
                       <span className='bg-zinc-600 w-4 h-4 p-1 rounded-full flex items-center justify-center text-zinc-100 absolute -right-2 -top-2'>0</span>
-                      <IoMdCart className='w-6 h-6 cursor-pointer text-zinc-100'/>
+                      <IoMdCart onClick={() => navigate('/cart')} className='w-6 h-6 cursor-pointer text-zinc-100'/>
                     </div>
                     <img src='' alt=''/>
-                    <p className='text-zinc-100'>Bem vindo Usuário</p>
+                    <p className='text-zinc-100'>Bem vindo {userFull.nome}</p>
+                    <Link to='/admin' className='text-zinc-100'>Admin</Link>
+                    <img src={userFull.imagem} alt='imagem do usuario' className='w-10 h-10 rounded-full'/>
                     <TbLogout className='w-6 h-6 cursor-pointer text-zinc-100' onClick={logoutUser}/>
                   </div>
                 ) : (

@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductList from '../ProductList';
-import produtsMock from '../../mock/product';
+import { findAllProducts } from '../../service/productService';
 
 const Products = () => {
     const [ categoriaTab, setCategoriaTab ] = useState('Primavera');
-    const [ products, setProducts ] = useState(produtsMock);
+    const [ products, setProducts ] = useState([]);
+
+    useEffect(() => {
+      getAllProducts();
+    }, [])
+
+    const getAllProducts = async () => {
+      const response = await findAllProducts();
+      setProducts(response.data);
+    }
   return (
     <section className='my-12 max-w-screen-xl mx-auto px-6'>
         {/* Menu Categoria */}

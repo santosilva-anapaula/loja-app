@@ -1,8 +1,11 @@
 import React, { useContext, useState } from 'react';
 import logo from '../../assets/logolrp.png';
 import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
+
     const [inputValues, setInputValues] = useState({
         email:'',
         senha:''
@@ -24,9 +27,10 @@ const Login = () => {
     }
   return (
     <main className='h-screen w-full banner'>
-        <div className='flex flex-col pt-30 h-screen items-center'>
+        <div className='flex flex-col pt-20 h-screen items-center'>
             <img src={logo} alt='logotipo food app' className='w-40 my-6'/>
             <form onSubmit={handleSubmit} action='' className='bg-white w-96 mt-6 p-4 rounded-lg shadow-lg'>
+                <h1 className='text-2xl text-gray-600 py-3'>Login</h1>
                 <div className='flex flex-col space-y-6'>
                     <input type='mail' placeholder='Digite o seu email' name='email'
                         className='w-full px-4 py-3 rounded-lg ring-zinc-400 border border-zinc-300 focus:ring-4 focus:outline-none transition duration-300'
@@ -37,8 +41,8 @@ const Login = () => {
                         onChange={handleChangeValues}
                     />
                 </div>
-                <button type='submit' className='w-full py-3 bg-zinc-600 text-zinc-100 focus:outline-none focus:ring-4 mt-6 rounded-lg transition duration-300'>Entrar</button>
-                <p className='text-base text-center my-6 hover:underline cursor-pointer'>Precisa de uma conta?</p>
+                <button type='submit' className='w-full py-3 bg-zinc-600 text-zinc-100 hover:bg-zinc-800 mt-6 rounded-lg transition duration-300'>Entrar</button>
+                <p  onClick={() => navigate('/register')} className='text-base text-center my-6 hover:underline cursor-pointer'>Precisa de uma conta?</p>
             </form>
         </div>
     </main>
