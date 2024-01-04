@@ -17,19 +17,25 @@ const Cart = () => {
     });
 
     useEffect(() => {
-        const storageCart = JSON.parse(localStorage.getItem('productCart'));
-        setProductsCart(storageCart);
-        const total = productsCart.reduce((valor, product) => {
-            return valor + product.precoUnitario;
-        }, 0)
-        setTotalValue(total);
+        calcTotal();
     }, [])
+
+    const calcTotal = () => {
+        const storageCart = JSON.parse(localStorage.getItem('productCart'));
+        const total = storageCart.reduce((valor, product) => {
+            return valor + (product.precoUnitario * product.quantity);
+        }, 0)
+        setProductsCart(storageCart);
+        setTotalValue(total);
+        console.log(total)
+    }
 
     const remove = (id) => {
         const storageCart = JSON.parse(localStorage.getItem('productCart')); //busca dados no storage
         const filterCart = storageCart.filter((product) => product._id !== id);
         localStorage.setItem('productCart', JSON.stringify(filterCart));
         setProductsCart(filterCart);
+        calcTotal();
     }
 
     const findAdress = async () => {
