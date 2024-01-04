@@ -83,7 +83,7 @@ const Cart = () => {
             const responseOrder = await addOrder(order);
             if (responseOrder.data) {
                 localStorage.removeItem('productCart');
-                navigate('/complete')
+                navigate('/sucessful')
             }
         }
     }
